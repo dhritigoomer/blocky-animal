@@ -14,6 +14,9 @@ const TRIANGLE = 1;
 const CIRCLE = 2;
 
 let g_globalAngle = 0;
+let g_globalAngleX = 0;
+let g_globalAngleY = 0;
+let g_globalAngleZ = 0;
 var g_shapesList = [];
 
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
@@ -96,31 +99,17 @@ function connectVariablesToGLSL() {
 
 function addActionsForHtmlUI(){
   // slider events!
-  document.getElementById('angleSlide').addEventListener('mousemove', function() {g_globalAngle = this.value; renderAllShapes(); });
+  document.getElementById('angleSlide').addEventListener(`mousemove`, function() {g_globalAngle = this.value; renderAllShapes(); });
   //set clear button
   document.getElementById('clear-button').onclick = function () { g_shapesList = []; gl.clearColor(0.0, 0.0, 0.0, 1.0); renderAllShapes(); };
 }
 
 function click(ev) {
+    let coordinates = convertCoordinatesEventToGL(ev);
+    g_globalAngleX = g_globalAngleX-coordinates[0]*360;
+    g_globalAngleY = g_globalAngleY-coordinates[1]*360;
 
-  [x, y] = convertCoordinatesEventToGL(ev);
-
-  let point;
-
-  if (g_selectedType == POINT) {
-    point = new Point();
-  } else if (g_selectedType == TRIANGLE) {
-    point = new Triangle();
-  } else if (g_selectedType == CIRCLE) {
-    point = new Circle();
-    point.segments = g_selectedSegments;
-  }
-  point.position=[x,y];
-  point.color=g_selectedColor.slice();
-  point.size=g_selectedSize;
-  g_shapesList.push(point);
-
-  renderAllShapes();
+    renderAllShapes();
 }
 
 function convertCoordinatesEventToGL(ev) {
@@ -137,17 +126,17 @@ function convertCoordinatesEventToGL(ev) {
 function renderAllShapes() {
   var startTime = performance.now();
 
-  var globalRotMat = new Matrix4().rotate(g_globalAngle, 0, 1, 0);
-  console.log(g_globalAngle);
+  var globalRotMat = new Matrix4();
+  globalRotMat.rotate(g_globalAngle, 0, 1, 0);
+  globalRotMat.rotate(g_globalAngleY, 1, 0, 0);
+  globalRotMat.rotate(g_globalAngleZ, 0, 0, 1);
+
+  // console.log(g_globalAngle);
   gl.uniformMatrix4fv(u_GlobalRotateMatrix, false, globalRotMat.elements);
   // Clear <canvas>
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   gl.clear(gl.COLOR_BUFFER_BIT);
-  // var len = g_shapesList.length;
-  // for(var i = 0; i < len; i++) {
-  //   g_shapesList[i].render();
-  //
-  // }
-  drawTriangle3D([-1.0, 0, 0,  -0.5, 0, 0,  0, 0, 0]);
+
   var body = new Cube();
   body.color = [1,0,0,1];
   body.matrix.translate(-0.25, -0.5, 0.0);
@@ -156,7 +145,7 @@ function renderAllShapes() {
 
   var leftArm = new Cube();
   leftArm.color = [1.0, 1.0, 0, 1];
-  leftArm.matrix.translate(0.7, 0, 0);
+  leftArm.matrix.setTranslate(0.7, 0, 0);
   leftArm.matrix.rotate(45, 0, 0, 1);
   leftArm.matrix.scale(0.25, 0.7, 0.5);
   leftArm.render();
@@ -167,7 +156,6 @@ function renderAllShapes() {
   box.matrix.rotate(-30, 1, 0, 0);
   box.matrix.scale(0.5, 0.5, 0.5);
   box.render();
-
 
   var duration = performance.now() - startTime;
   sendTextToHTML(" ms: " + Math.floor(duration) + " fps: " + Math.floor(1000/duration), "numdot");
@@ -188,12 +176,9 @@ function main() {
   setupWebGL();
   connectVariablesToGLSL();
   addActionsForHtmlUI();
-  // renderAllShapes();
-
-
 
   // Specify the color for clearing <canvas>
-  gl.clearColor(0.0, 0.0, 0.0, 1.0);
+  gl.clearColor(0.67, 0.82, 0.11, 1);
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT);
