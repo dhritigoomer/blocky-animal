@@ -1,28 +1,26 @@
 function drawAnimal() {
-    var wool = [1, 1, 1, 1.0];
-    var test = [1,0,0,1];
-    var horn = [92/255,64/255,51/255,1]
-    var blackwool = [0,0,0,1]
-    var skin = [182/255, 151/255, 127/255, 1.0];
-    var whiteWool = [0, 222/255, 218/255, 1];
+    var fur = [150/255, 150/255, 150/255, 1 ] // head and body
+    var leg =  [56/255, 33/255, 7/255, 1];
+    var faceC = leg;
+    var faceFur = [59/255, 57/255, 55/255, 1];
+    var horn = [0, 0, 0, 1];
+    // for the eyes
     var white = [1, 1, 1, 1];
     var black = [0, 0, 0, 1];
     var snoutColor = [1, 183/255, 192/255, 1];
-    var nostrils = black;
-    var upperLip = [255/255, 181/255, 181/255, 1];
-    var lowerLip = [218/255, 157/255, 157/255, 1];
-    var hoof = [84/255, 72/255, 63/255, 1];
+    var nostrils = [107/255, 48/255, 90/255, 1];
+    var hoof = [26/255, 20/255, 14/255, 1];
 
     // Body
     var body = new Cube();
-    body.color = wool;
+    body.color = fur;
     body.matrix.scale(.5, 0.4, 0.65);
     body.matrix.translate(-.5, -.25, -0.25);
     body.render();
 
     // Head
     var head = new Cube();
-    head.color = wool;
+    head.color = fur;
     head.matrix.rotate(-HeadXAngle, 1, 0, 0);
     head.matrix.rotate(-HeadYAngle, 0, 1, 0);
     head.matrix.rotate(-HeadZAngle, 0, 0, 1);
@@ -31,7 +29,7 @@ function drawAnimal() {
     head.render();
 
     var face = new Cube();
-    face.color = skin;
+    face.color = faceC;
     face.matrix.rotate(-HeadXAngle, 1, 0, 0);
     face.matrix.rotate(-HeadYAngle, 0, 1, 0);
     face.matrix.rotate(-HeadZAngle, 0, 0, 1);
@@ -40,7 +38,7 @@ function drawAnimal() {
     face.render();
 
     var topWool = new Cube();
-    topWool.color = whiteWool;
+    topWool.color = faceFur;
     topWool.matrix.rotate(-HeadXAngle, 1, 0, 0);
     topWool.matrix.rotate(-HeadYAngle, 0, 1, 0);
     topWool.matrix.rotate(-HeadZAngle, 0, 0, 1);
@@ -49,7 +47,7 @@ function drawAnimal() {
     topWool.render();
 
     var bottomLeftWool = new Cube();
-    bottomLeftWool.color = whiteWool;
+    bottomLeftWool.color = faceFur;
     bottomLeftWool.matrix.rotate(-HeadXAngle, 1, 0, 0);
     bottomLeftWool.matrix.rotate(-HeadYAngle, 0, 1, 0);
     bottomLeftWool.matrix.rotate(-HeadZAngle, 0, 0, 1);
@@ -58,7 +56,7 @@ function drawAnimal() {
     bottomLeftWool.render();
 
     var bottomRightWool = new Cube();
-    bottomRightWool.color = whiteWool;
+    bottomRightWool.color = faceFur;
     bottomRightWool.matrix.rotate(-HeadXAngle, 1, 0, 0);
     bottomRightWool.matrix.rotate(-HeadYAngle, 0, 1, 0);
     bottomRightWool.matrix.rotate(-HeadZAngle, 0, 0, 1);
@@ -103,7 +101,7 @@ function drawAnimal() {
     rightEyeBlack.render();
 
     var hornR = new Cube();
-    hornR.color = horn;
+    hornR.color = black;
     hornR.matrix.rotate(-HeadXAngle, 1, 0, 0);
     hornR.matrix.rotate(-HeadYAngle, 0, 1, 0);
     hornR.matrix.rotate(-HeadZAngle, 0, 0, 1);
@@ -147,18 +145,10 @@ function drawAnimal() {
     nostrilR.matrix.translate(1.90, 6.5, -7.4);
     nostrilR.render()
 
-    var mouthBottom = new Cube();
-    mouthBottom.color = lowerLip;
-    mouthBottom.matrix.rotate(-HeadXAngle, 1, 0, 0);
-    mouthBottom.matrix.rotate(-HeadYAngle, 0, 1, 0);
-    mouthBottom.matrix.rotate(-HeadZAngle, 0, 0, 1);
-    mouthBottom.matrix.scale(0.1, 0.035, 0.04);
-    mouthBottom.matrix.translate(-0.4701, 3.2, -8.15);
-    mouthBottom.render()
 
     // Upper legs
     var frontLeft = new Cube();
-    frontLeft.color = wool;
+    frontLeft.color = leg;
     frontLeft.matrix.setTranslate(0, 0, 0);
     frontLeft.matrix.rotate(-FrontLeftLegZAngle, 0, 0, 1);
     frontLeft.matrix.rotate(-FrontLeftLegYAngle, 0, 1, 0);
@@ -169,7 +159,7 @@ function drawAnimal() {
     frontLeft.render();
 
     var frontRight = new Cube();
-    frontRight.color = wool;
+    frontRight.color = leg;
     frontRight.matrix.setTranslate(0, 0, 0);
     frontRight.matrix.rotate(FrontRightLegZAngle, 0, 0, 1);
     frontRight.matrix.rotate(FrontRightLegYAngle, 0, 1, 0);
@@ -180,7 +170,7 @@ function drawAnimal() {
     frontRight.render();
 
     var backLeft = new Cube();
-    backLeft.color = blackwool;
+    backLeft.color = leg;
     backLeft.matrix.setTranslate(0, 0, 0);
     backLeft.matrix.rotate(-BackLeftLegZAngle, 0, 0, 1);
     backLeft.matrix.rotate(-BackLeftLegYAngle, 0, 1, 0);
@@ -191,7 +181,7 @@ function drawAnimal() {
     backLeft.render();
 
     var backRight = new Cube();
-    backRight.color = wool;
+    backRight.color = leg;
     backRight.matrix.setTranslate(0, 0, 0);
     backRight.matrix.rotate(BackRightLegZAngle, 0, 0, 1);
     backRight.matrix.rotate(BackRightLegYAngle, 0, 1, 0);
@@ -203,47 +193,47 @@ function drawAnimal() {
 
     // Lower leg
     var frontLeftLow = new Cube();
-    frontLeftLow.color = skin;
+    frontLeftLow.color = fur;
     frontLeftLow.matrix = frontLeftCoord;
     frontLeftLow.matrix.rotate(BottomFrontLeftLegZAngle, 0, 0, 1);
     frontLeftLow.matrix.rotate(BottomFrontLeftLegYAngle, 0, 1, 0);
     frontLeftLow.matrix.rotate(BottomFrontLeftLegXAngle, 1, 0, 0);
     var frontLeftLowCoord = new Matrix4(frontLeftLow.matrix);
     frontLeftLow.matrix.scale(0.16, 0.16, 0.16);
-    frontLeftLow.matrix.translate(-1.25, -2.5, -.8);
+    frontLeftLow.matrix.translate(-1.25, -3.9, -.8);
     frontLeftLow.render();
 
     var frontRightLow = new Cube();
-    frontRightLow.color = skin;
+    frontRightLow.color = fur;
     frontRightLow.matrix = frontRightCoord;
     frontRightLow.matrix.rotate(BottomFrontRightLegZAngle, 0, 0, 1);
     frontRightLow.matrix.rotate(BottomFrontRightLegYAngle, 0, 1, 0);
     frontRightLow.matrix.rotate(BottomFrontRightLegXAngle, 1, 0, 0);
     var frontRightLowCoord = new Matrix4(frontRightLow.matrix);
     frontRightLow.matrix.scale(0.16, 0.16, 0.16);
-    frontRightLow.matrix.translate(.37, -2.5, -.8);
+    frontRightLow.matrix.translate(.37, -3.9, -.8);
     frontRightLow.render();
 
     var backLeftLow = new Cube();
-    backLeftLow.color = skin;
+    backLeftLow.color = fur;
     backLeftLow.matrix = backLeftCoord;
     backLeftLow.matrix.rotate(BottomBackLeftLegZAngle, 0, 0, 1);
     backLeftLow.matrix.rotate(BottomBackLeftLegYAngle, 0, 1, 0);
     backLeftLow.matrix.rotate(BottomBackLeftLegXAngle, 1, 0, 0);
     var backLeftLowCoord = new Matrix4(backLeftLow.matrix);
     backLeftLow.matrix.scale(0.16, 0.16, 0.16);
-    backLeftLow.matrix.translate(-1.25, -2.5, 1.8);
+    backLeftLow.matrix.translate(-1.25, -3.9, 1.8);
     backLeftLow.render();
 
     var backRightLow = new Cube();
-    backRightLow.color = skin;
+    backRightLow.color = fur;
     backRightLow.matrix = backRightCoord;
     backRightLow.matrix.rotate(BottomBackRightLegZAngle, 0, 0, 1);
     backRightLow.matrix.rotate(BottomBackRightLegYAngle, 0, 1, 0);
     backRightLow.matrix.rotate(BottomBackRightLegXAngle, 1, 0, 0);
     var backRightLowCoord = new Matrix4(backRightLow.matrix);
     backRightLow.matrix.scale(0.16, 0.16, 0.16);
-    backRightLow.matrix.translate(.37, -2.5, 1.8);
+    backRightLow.matrix.translate(.37, -3.9, 1.8);
     backRightLow.render();
 
     // Hoofs
@@ -251,35 +241,42 @@ function drawAnimal() {
     frontLeftHoof.color = hoof;
     frontLeftHoof.matrix = frontLeftLowCoord;
     frontLeftHoof.matrix.scale(0.15, 0.05, .16);
-    frontLeftHoof.matrix.translate(-1.3, -9, -0.8);
+    frontLeftHoof.matrix.translate(-1.3, -13.3, -0.81);
     frontLeftHoof.render();
 
     var frontRightHoof = new Cube();
     frontRightHoof.color = hoof;
     frontRightHoof.matrix = frontRightLowCoord;
     frontRightHoof.matrix.scale(0.15, 0.05, .16);
-    frontRightHoof.matrix.translate(0.4, -9, -0.8);
+    frontRightHoof.matrix.translate(0.4, -13.3, -0.81);
     frontRightHoof.render();
 
     var backLeftHoof = new Cube();
     backLeftHoof.color = hoof;
     backLeftHoof.matrix = backLeftLowCoord;
     backLeftHoof.matrix.scale(0.15, 0.05, .16);
-    backLeftHoof.matrix.translate(-1.3, -9, 1.8);
+    backLeftHoof.matrix.translate(-1.3, -13.3, 1.81);
     backLeftHoof.render();
 
     var backRightHoof = new Cube();
     backRightHoof.color = hoof;
     backRightHoof.matrix = backRightLowCoord;
     backRightHoof.matrix.scale(0.15, 0.05, .16);
-    backRightHoof.matrix.translate(0.4, -9, 1.8);
+    backRightHoof.matrix.translate(0.4, -13.3, 1.81);
     backRightHoof.render();
 
     // Tail
+    var tail_length = new Cube();
+    tail_length.color = leg;
+    tail_length.matrix.scale(.02, 0.3, 0.3);
+    // (0.02, 0.061, 0.04)
+    tail_length.matrix.translate(-.5, -.25, 0.7);
+    tail_length.render();
+
     var tail = new Sphere();
-    tail.color = wool;
+    tail.color = hoof;
     tail.matrix.scale(0.1, 0.1, 0.1);
-    tail.matrix.translate(0, 3, 4.5);
+    tail.matrix.translate(0, -0.1, 4.5);
     tail.render();
 
  }
